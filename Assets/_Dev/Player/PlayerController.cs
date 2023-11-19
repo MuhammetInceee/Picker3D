@@ -6,10 +6,11 @@ namespace Picker.Player
     {
         public float speedModifier;
 
-        [SerializeField] private float speed, turnSensitivity;
+        [SerializeField] private float verticalSpeed;
+        [SerializeField] private float sensitivity;
 
         private Rigidbody _rb;
-        private float _turnSpeed;
+        private float _horizontalSpeed;
 
         private void Awake()
         {
@@ -28,15 +29,15 @@ namespace Picker.Player
         }
 
         private void VelocityControl() => _rb.velocity =
-            new Vector3(Mathf.Clamp(_turnSpeed, -10, 10), _rb.velocity.y, speed + speedModifier);
+            new Vector3(Mathf.Clamp(_horizontalSpeed, -10, 10), _rb.velocity.y, verticalSpeed + speedModifier);
 
         private void MovementInput()
         {
             if (Input.GetMouseButton(0))
             {
-                _turnSpeed = Input.GetAxis("Mouse X") * turnSensitivity;
+                _horizontalSpeed = Input.GetAxis("Mouse X") * sensitivity;
             }
-            else _turnSpeed = 0;
+            else _horizontalSpeed = 0;
         }
     }
 }
