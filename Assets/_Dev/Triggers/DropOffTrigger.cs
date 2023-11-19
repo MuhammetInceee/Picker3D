@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -10,11 +7,14 @@ namespace Picker.Trigger
     {
         internal bool isFilled;
         
-        [SerializeField] private int requiredCount;
-        [SerializeField] private TextMeshProUGUI text;
         [SerializeField] private Animator animator;
+        [SerializeField] private TextMeshProUGUI text;
+        [SerializeField] private int requiredCount;
         
         private int _currentCount;
+
+        //Properties
+        private string TextContent => text.text = $"{_currentCount} / {requiredCount}";
 
         private int CurrentCount
         {
@@ -22,7 +22,7 @@ namespace Picker.Trigger
             set
             {
                 _currentCount = value;
-                text.text = $"{_currentCount} / {requiredCount}";
+                text.text = TextContent;
 
                 if (_currentCount >= requiredCount)
                 {
@@ -32,11 +32,16 @@ namespace Picker.Trigger
             }
         }
 
+        private void Awake()
+        {
+            text.text = TextContent;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Ball"))
             {
-                _currentCount++;
+                CurrentCount++;
                 other.tag = "Untagged";
             }
         }
