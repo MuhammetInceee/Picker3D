@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 8309547373574837672}
   - component: {fileID: 6103932232918212962}
   m_Layer: 0
-  m_Name: FinishFlag
+  m_Name: RampEnter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -809,7 +809,7 @@ GameObject:
   - component: {fileID: 7784464104298512242}
   - component: {fileID: 7784464104298512240}
   m_Layer: 0
-  m_Name: FinishFlag 2
+  m_Name: ThrowPoint
   m_TagString: Throw
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

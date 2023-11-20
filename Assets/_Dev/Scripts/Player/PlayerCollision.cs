@@ -11,6 +11,8 @@ namespace Picker.Player
     {
         public event Action OnLevelEnd;
         public event Action OnLevelProgress;
+        public event Action OnRampEnter;
+        public event Action OnThrow;
         
         [SerializeField] private GameObject forceCollider;
 
@@ -42,8 +44,15 @@ namespace Picker.Player
             {
                 _gameManager.ChangeGameState(GameState.Ramp);
                 other.enabled = false;
+                OnRampEnter?.Invoke();
                 //TODO Next Level Create
-                //TODO Rush Mechanic will be added
+            }
+
+            if (other.CompareTag("Throw"))
+            {
+                OnThrow?.Invoke();
+                _gameManager.ChangeGameState(GameState.Wait);
+                _rb.AddForce(Vector3.down * 5, ForceMode.VelocityChange);
             }
         }
 

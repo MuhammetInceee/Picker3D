@@ -6,7 +6,7 @@ namespace Picker.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        public float speedModifier;
+        private float _speedModifier;
 
         [SerializeField] private float verticalSpeed;
         [SerializeField] private float sensitivity;
@@ -29,13 +29,14 @@ namespace Picker.Player
         {
             VelocityControl();
             MovementInput();
+            ThrowInput();
         }
 
         private void VelocityControl()
         {
              if(_gameManager.gameState != GameState.Game && _gameManager.gameState != GameState.Ramp) return;
             
-            _rb.velocity = new Vector3(Mathf.Clamp(_horizontalSpeed, -10, 10), _rb.velocity.y, verticalSpeed + speedModifier);
+            _rb.velocity = new Vector3(Mathf.Clamp(_horizontalSpeed, -10, 10), _rb.velocity.y, verticalSpeed + _speedModifier);
         }
 
         private void MovementInput()
@@ -46,6 +47,13 @@ namespace Picker.Player
                 _horizontalSpeed = Input.GetAxis("Mouse X") * sensitivity;
             
             else _horizontalSpeed = 0;
+        }
+
+        private void ThrowInput()
+        {
+            if(_gameManager.gameState != GameState.Ramp) return;
+            
+            
         }
 
         private void InitVariables()

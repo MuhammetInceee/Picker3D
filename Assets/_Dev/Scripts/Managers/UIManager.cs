@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Picker.Enums;
 using Picker.Player;
-using Picker.Utilities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,6 +24,7 @@ namespace Picker.Managers
 
         [Header("Level Progress Bars")] 
         [SerializeField] private List<Image> levelProgressBars;
+        [SerializeField] private GameObject throwUI;
 
         private GameManager _gameManager;
         private int _currentLevelStep = 0;
@@ -35,12 +35,27 @@ namespace Picker.Managers
             SubscribeEvents();
         }
 
+        private void OnDisable()
+        {
+            UnSubscribeEvents();
+        }
+
         private void SubscribeEvents()
         {
             playerCollision.OnLevelEnd += OpenFinishRect;
             playerCollision.OnLevelProgress += LevelProgress;
+            playerCollision.OnRampEnter += ThrowUIEnabled;
+            playerCollision.OnThrow += ThrowUIDisabled;
             startTrigger.onClick.AddListener(TapToPlayTrigger);
             restartTrigger.onClick.AddListener(SceneReload);
+        }
+
+        private void UnSubscribeEvents()
+        {
+            playerCollision.OnLevelEnd -= OpenFinishRect;
+            playerCollision.OnLevelProgress -= LevelProgress;
+            playerCollision.OnRampEnter -= ThrowUIEnabled;
+            playerCollision.OnThrow -= ThrowUIDisabled;
         }
 
         private void TapToPlayTrigger()
@@ -65,6 +80,7 @@ namespace Picker.Managers
         private void LevelProgress()
         {
             if (_currentLevelStep < 0 || _currentLevelStep >= levelProgressBars.Count) return;
+            
             Color targetColor = new Color(255f / 255f, 135f / 255f, 40f / 255f);
             levelProgressBars[_currentLevelStep].DOColor(targetColor, 0.5f);
             _currentLevelStep++;
@@ -74,5 +90,8 @@ namespace Picker.Managers
         {
             _gameManager = GameManager.Instance;
         }
+
+        private void ThrowUIEnabled() => throwUI.SetActive(true);
+        private void ThrowUIDisabled() => throwUI.SetActive(false);
     }
 }
