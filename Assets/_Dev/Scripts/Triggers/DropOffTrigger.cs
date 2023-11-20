@@ -5,6 +5,8 @@ namespace Picker.Trigger
 {
     public class DropOffTrigger : MonoBehaviour
     {
+        private static readonly int Filled = Animator.StringToHash("Filled");
+        
         internal bool isFilled;
         
         [SerializeField] private Animator animator;
@@ -27,7 +29,7 @@ namespace Picker.Trigger
                 if (_currentCount >= requiredCount)
                 {
                     isFilled = true;
-                    //TODO platform animation will be added
+                    animator.SetTrigger(Filled);
                 }
             }
         }
