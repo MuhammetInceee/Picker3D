@@ -597,6 +597,7 @@ GameObject:
   - component: {fileID: 6257824968363521829}
   - component: {fileID: 7471242568662312635}
   - component: {fileID: 8089462700591827159}
+  - component: {fileID: 8925498499432693155}
   m_Layer: 0
   m_Name: Picker
   m_TagString: Untagged
@@ -659,9 +660,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 261654f6e15717c4aa6cf2c240094aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedModifier: 0
-  speed: 11
-  turnSensitivity: 10
+  SpeedModifier: 0
+  verticalSpeed: 10
+  sensitivity: 11
 --- !u!114 &8089462700591827159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -674,6 +675,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22af0eea51c1d224ea869ba5cc09e507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forceCollider: {fileID: 1758345633}
+  extraColliders: {fileID: 8008738278030807552}
+--- !u!114 &8925498499432693155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6257824968363521828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e917449f10630c48beaebb9632ac2bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceSlider: {fileID: 0}
+  percentText: {fileID: 0}
 --- !u!1 &7248626536969539937
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,13 +1,12 @@
 using System;
 using System.Collections;
 using Picker.Enums;
-using Picker.Managers;
 using Picker.Trigger;
 using UnityEngine;
 
 namespace Picker.Player
 {
-    public class PlayerCollision : MonoBehaviour
+    public class PlayerCollision : PlayerBase
     {
         public event Action OnLevelEnd;
         public event Action OnLevelProgress;
@@ -15,14 +14,11 @@ namespace Picker.Player
         public event Action OnThrow;
         
         [SerializeField] private GameObject forceCollider;
+        [SerializeField] private GameObject extraColliders;
 
-        private GameManager _gameManager;
-        private Rigidbody _rb;
-
-        private void Awake()
+        protected override void Awake()
         {
-            _gameManager = GameManager.Instance;
-            _rb = GetComponent<Rigidbody>();
+            base.Awake();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -42,24 +38,28 @@ namespace Picker.Player
 
             if (other.CompareTag("RampEnter"))
             {
-                _gameManager.ChangeGameState(GameState.Ramp);
-                other.enabled = false;
+                gameManager.ChangeGameState(GameState.Ramp);
                 OnRampEnter?.Invoke();
+                other.enabled = false;
+                SetBodyConstraints(RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ);
+                extraColliders.SetActive(false);
+                
+                HorizontalSpeed = 0;
                 //TODO Next Level Create
             }
 
             if (other.CompareTag("Throw"))
             {
                 OnThrow?.Invoke();
-                _gameManager.ChangeGameState(GameState.Wait);
-                _rb.AddForce(Vector3.down * 5, ForceMode.VelocityChange);
+                gameManager.ChangeGameState(GameState.Wait);
+                Rb.AddForce(Vector3.down * 2.5f, ForceMode.VelocityChange);
             }
         }
 
         private IEnumerator WaitDropOff(DropOffTrigger dropOff, float delay)
         {
-            _gameManager.ChangeGameState(GameState.Wait);
-            _rb.isKinematic = true;
+            gameManager.ChangeGameState(GameState.Wait);
+            Rb.isKinematic = true;
             forceCollider.SetActive(true);
 
             yield return new WaitForSeconds(delay);
@@ -69,8 +69,8 @@ namespace Picker.Player
             if (dropOff.isFilled)
             {
                 OnLevelProgress?.Invoke();
-                _rb.isKinematic = false;
-                _gameManager.ChangeGameState(GameState.Game);
+                Rb.isKinematic = false;
+                gameManager.ChangeGameState(GameState.Game);
             }
             else
             {
