@@ -9,6 +9,9 @@ namespace Picker.Player
 {
     public class PlayerCollision : MonoBehaviour
     {
+        public event Action OnLevelEnd;
+        public event Action OnLevelProgress;
+        
         [SerializeField] private GameObject forceCollider;
 
         private GameManager _gameManager;
@@ -48,12 +51,12 @@ namespace Picker.Player
 
             if (dropOff.isFilled)
             {
-                //TODO Level Progress Bar Will Be Increased
+                OnLevelProgress?.Invoke();
                 _rb.isKinematic = false;
             }
             else
             {
-                //TODO UI Manager's On Level Fail will Invoked
+                OnLevelEnd?.Invoke();
             }
         }
     }
