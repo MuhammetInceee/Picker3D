@@ -471,8 +471,8 @@ GameObject:
   - component: {fileID: 6579480379127952256}
   - component: {fileID: 2786096392770733123}
   - component: {fileID: 5395533019512384670}
-  m_Layer: 8
-  m_Name: Fil
+  m_Layer: 6
+  m_Name: Filler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -763,9 +763,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f38c6c43ae703a47aa5ada6b0d81fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredCount: 5
-  text: {fileID: 7507293965287120294}
   animator: {fileID: 8987985650488492188}
+  text: {fileID: 7507293965287120294}
+  requiredCount: 5
 --- !u!1 &8171023948722302646
 GameObject:
   m_ObjectHideFlags: 0

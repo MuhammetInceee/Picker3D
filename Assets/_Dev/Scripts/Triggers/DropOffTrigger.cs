@@ -13,6 +13,7 @@ namespace Picker.Trigger
         [SerializeField] private TextMeshProUGUI text;
         [SerializeField] private int requiredCount;
         
+        
         private int _currentCount;
 
         //Properties

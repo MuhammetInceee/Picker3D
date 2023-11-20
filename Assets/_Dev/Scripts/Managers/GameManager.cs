@@ -8,9 +8,9 @@ namespace Picker.Managers
     {
         public GameState gameState { get; private set; } = GameState.Wait;
 
-        public GameState ChangeGameState(GameState changedState)
+        public void ChangeGameState(GameState changedState)
         {
-            return gameState = changedState;
+            gameState = changedState;
         }
     }
 }

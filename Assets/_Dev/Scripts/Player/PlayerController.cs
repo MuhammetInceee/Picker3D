@@ -33,7 +33,7 @@ namespace Picker.Player
 
         private void VelocityControl()
         {
-            if(_gameManager.gameState != GameState.Game || _gameManager.gameState != GameState.Ramp) return;
+             if(_gameManager.gameState != GameState.Game && _gameManager.gameState != GameState.Ramp) return;
             
             _rb.velocity = new Vector3(Mathf.Clamp(_horizontalSpeed, -10, 10), _rb.velocity.y, verticalSpeed + speedModifier);
         }

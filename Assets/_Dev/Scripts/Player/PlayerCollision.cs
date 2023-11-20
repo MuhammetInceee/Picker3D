@@ -35,7 +35,7 @@ namespace Picker.Player
                 DropOffTrigger trigger = other.GetComponentInParent<DropOffTrigger>();
                 other.enabled = false;
 
-                StartCoroutine(WaitDropOff(trigger, 6));
+                StartCoroutine(WaitDropOff(trigger, 4));
             }
         }
 
@@ -53,6 +53,7 @@ namespace Picker.Player
             {
                 OnLevelProgress?.Invoke();
                 _rb.isKinematic = false;
+                _gameManager.ChangeGameState(GameState.Game);
             }
             else
             {

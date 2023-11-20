@@ -64,9 +64,9 @@ namespace Picker.Managers
 
         private void LevelProgress()
         {
-            if (_currentLevelStep < levelProgressBars.Count) return;
-            
-            levelProgressBars[_currentLevelStep].DOColor(new Color(255, 135, 40), 0.5f);
+            if (_currentLevelStep < 0 || _currentLevelStep >= levelProgressBars.Count) return;
+            Color targetColor = new Color(255f / 255f, 135f / 255f, 40f / 255f);
+            levelProgressBars[_currentLevelStep].DOColor(targetColor, 0.5f);
             _currentLevelStep++;
         }
 
