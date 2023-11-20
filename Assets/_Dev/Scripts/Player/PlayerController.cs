@@ -8,11 +8,6 @@ namespace Picker.Player
         public float SpeedModifier;
         [SerializeField] private float verticalSpeed;
         [SerializeField] private float sensitivity;
-        
-        protected override void Awake()
-        {
-            base.Awake();
-        }
 
         private void FixedUpdate()
         {

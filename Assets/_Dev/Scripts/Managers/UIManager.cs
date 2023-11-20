@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Picker.Enums;
@@ -10,13 +11,16 @@ namespace Picker.Managers
 {
     public class UIManager : MonoBehaviour
     {
+        public static event Action OnReset;
+        
         [Header("Require Components")] 
         [SerializeField] private PlayerCollision playerCollision;
 
         [Header("GameScreens")] 
         [SerializeField] private GameObject startScreen;
         [SerializeField] private GameObject gameScreen;
-        [SerializeField] private GameObject levelEndScreen;
+        [SerializeField] private GameObject failScreen;
+        [SerializeField] private GameObject successScreen;
 
         [Header("UIElements")] 
         [SerializeField] private Button startTrigger;
@@ -70,11 +74,13 @@ namespace Picker.Managers
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        private void OpenFinishRect()
+        private void OpenFinishRect(bool isSuccess)
         {
             gameScreen.SetActive(false);
-            levelEndScreen.SetActive(true);
             _gameManager.ChangeGameState(GameState.Wait);
+
+            GameObject targetScreen = isSuccess ? successScreen : failScreen;
+            targetScreen.SetActive(true);
         }
 
         private void LevelProgress()

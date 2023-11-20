@@ -2,24 +2,20 @@ using System;
 using System.Collections;
 using Picker.Enums;
 using Picker.Trigger;
+using TMPro;
 using UnityEngine;
 
 namespace Picker.Player
 {
     public class PlayerCollision : PlayerBase
     {
-        public event Action OnLevelEnd;
+        public event Action<bool> OnLevelEnd;
         public event Action OnLevelProgress;
         public event Action OnRampEnter;
         public event Action OnThrow;
         
         [SerializeField] private GameObject forceCollider;
         [SerializeField] private GameObject extraColliders;
-
-        protected override void Awake()
-        {
-            base.Awake();
-        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -41,7 +37,7 @@ namespace Picker.Player
                 gameManager.ChangeGameState(GameState.Ramp);
                 OnRampEnter?.Invoke();
                 other.enabled = false;
-                SetBodyConstraints(RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ);
+                SetRbConstraints(RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ);
                 extraColliders.SetActive(false);
                 
                 HorizontalSpeed = 0;
@@ -53,6 +49,13 @@ namespace Picker.Player
                 OnThrow?.Invoke();
                 gameManager.ChangeGameState(GameState.Wait);
                 Rb.AddForce(Vector3.down * 2.5f, ForceMode.VelocityChange);
+            }
+
+            if (other.CompareTag("MultipleTile"))
+            {
+                int endMoney = int.Parse(other.GetComponentInChildren<TextMeshProUGUI>().text);
+                StopCoroutine(WaitMovementEnd(endMoney));
+                StartCoroutine(WaitMovementEnd(endMoney));
             }
         }
 
@@ -74,8 +77,17 @@ namespace Picker.Player
             }
             else
             {
-                OnLevelEnd?.Invoke();
+                OnLevelEnd?.Invoke(false);
             }
+        }
+
+        private IEnumerator WaitMovementEnd(int endMoney)
+        {
+            yield return new WaitForSeconds(2.5f);
+            Rb.isKinematic = true;
+            print($"End Money : {endMoney}");
+            //TODO Money Add
+            OnLevelEnd?.Invoke(true);
         }
     }
 }

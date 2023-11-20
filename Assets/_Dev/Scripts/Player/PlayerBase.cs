@@ -15,6 +15,6 @@ namespace Picker.Player
             Rb = GetComponent<Rigidbody>();
         }
         
-        protected void SetBodyConstraints(RigidbodyConstraints constraints) => Rb.constraints = constraints;
+        protected void SetRbConstraints(RigidbodyConstraints constraints) => Rb.constraints = constraints;
     }
 }
