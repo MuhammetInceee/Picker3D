@@ -7,6 +7,10 @@ TagManager:
   - Ball
   - Hole
   - DropOff
+  - RampEnter
+  - Throw
+  - MultipleRoad
+  - MultipleTile
   layers:
   - Default
   - TransparentFX

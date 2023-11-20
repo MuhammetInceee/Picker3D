@@ -37,6 +37,14 @@ namespace Picker.Player
 
                 StartCoroutine(WaitDropOff(trigger, 4));
             }
+
+            if (other.CompareTag("RampEnter"))
+            {
+                _gameManager.ChangeGameState(GameState.Ramp);
+                other.enabled = false;
+                //TODO Next Level Create
+                //TODO Rush Mechanic will be added
+            }
         }
 
         private IEnumerator WaitDropOff(DropOffTrigger dropOff, float delay)
