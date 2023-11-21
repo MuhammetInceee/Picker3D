@@ -11,7 +11,7 @@ namespace Picker.Managers
 {
     public class UIManager : MonoBehaviour
     {
-        public static event Action OnReset;
+        // public static event Action OnReset;
         
         [Header("Require Components")] 
         [SerializeField] private PlayerCollision playerCollision;

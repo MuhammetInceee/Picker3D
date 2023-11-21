@@ -9,7 +9,6 @@ TagManager:
   - DropOff
   - RampEnter
   - Throw
-  - MultipleRoad
   - MultipleTile
   layers:
   - Default

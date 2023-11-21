@@ -5,7 +5,7 @@ namespace Picker.Player
 {
     public class PlayerController : PlayerBase
     {
-        public float SpeedModifier;
+        internal float SpeedModifier;
         [SerializeField] private float verticalSpeed;
         [SerializeField] private float sensitivity;
 

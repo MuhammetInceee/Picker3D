@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Picker.Enums;
+using Picker.Helpers;
 using Picker.Trigger;
 using TMPro;
 using UnityEngine;
@@ -10,12 +11,17 @@ namespace Picker.Player
     public class PlayerCollision : PlayerBase
     {
         public event Action<bool> OnLevelEnd;
+        public event Action<int> OnMoneyChange; 
         public event Action OnLevelProgress;
         public event Action OnRampEnter;
         public event Action OnThrow;
         
         [SerializeField] private GameObject forceCollider;
         [SerializeField] private GameObject extraColliders;
+
+        private Ramp _currentRamp;
+        private int _endMoney;
+        
 
         private void OnTriggerEnter(Collider other)
         {
@@ -34,6 +40,7 @@ namespace Picker.Player
 
             if (other.CompareTag("RampEnter"))
             {
+                _currentRamp = other.GetComponent<Ramp>();
                 gameManager.ChangeGameState(GameState.Ramp);
                 OnRampEnter?.Invoke();
                 other.enabled = false;
@@ -53,9 +60,9 @@ namespace Picker.Player
 
             if (other.CompareTag("MultipleTile"))
             {
-                int endMoney = int.Parse(other.GetComponentInChildren<TextMeshProUGUI>().text);
-                StopCoroutine(WaitMovementEnd(endMoney));
-                StartCoroutine(WaitMovementEnd(endMoney));
+                _endMoney = int.Parse(other.GetComponentInChildren<TextMeshProUGUI>().text);
+                StopCoroutine(nameof(WaitMovementEnd));
+                StartCoroutine(nameof(WaitMovementEnd));
             }
         }
 
@@ -81,12 +88,12 @@ namespace Picker.Player
             }
         }
 
-        private IEnumerator WaitMovementEnd(int endMoney)
+        private IEnumerator WaitMovementEnd()
         {
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(4);
+            _currentRamp.TileCollidersDisabled();
             Rb.isKinematic = true;
-            print($"End Money : {endMoney}");
-            //TODO Money Add
+            OnMoneyChange?.Invoke(_endMoney);
             OnLevelEnd?.Invoke(true);
         }
     }
