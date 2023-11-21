@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: c9aebc7a8dd2e044e82ec6f6d6b1d0a8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - ballPooling: {fileID: 11400000, guid: f2b0e92115460f0448ff14fc223f7201, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
