@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Picker.Helpers
@@ -8,12 +9,17 @@ namespace Picker.Helpers
         
         [SerializeField] private GameObject multipleTiles;
 
-        internal void TileCollidersDisabled()
+        internal void TileCollidersControl(bool isActive)
         {
             foreach (Collider col in multipleTiles.GetComponentsInChildren<Collider>())
             {
-                col.enabled = false;
+                col.enabled = isActive;
             }
+        }
+
+        private void OnDisable()
+        {
+            TileCollidersControl(true);
         }
     }
 }

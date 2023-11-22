@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using Picker.Enums;
 using Picker.Helpers;
 using Picker.Trigger;
@@ -11,7 +12,8 @@ namespace Picker.Player
     public class PlayerCollision : PlayerBase
     {
         public event Action<bool> OnLevelEnd;
-        public event Action<int> OnMoneyChange; 
+        public event Action<int> OnMoneyChange;
+        public event Action OnReset;
         public event Action OnLevelProgress;
         public event Action OnRampEnter;
         public event Action OnThrow;
@@ -21,7 +23,17 @@ namespace Picker.Player
 
         private Ramp _currentRamp;
         private int _endMoney;
-        
+
+        private void OnEnable()
+        {
+            OnReset += Reset;
+        }
+
+        private void OnDisable()
+        {
+            OnReset -= Reset;
+        }
+
 
         private void OnTriggerEnter(Collider other)
         {
@@ -48,7 +60,6 @@ namespace Picker.Player
                 extraColliders.SetActive(false);
                 
                 HorizontalSpeed = 0;
-                //TODO Next Level Create
             }
 
             if (other.CompareTag("Throw"))
@@ -91,10 +102,34 @@ namespace Picker.Player
         private IEnumerator WaitMovementEnd()
         {
             yield return new WaitForSeconds(4);
-            _currentRamp.TileCollidersDisabled();
+            _currentRamp.TileCollidersControl(false);
             Rb.isKinematic = true;
             OnMoneyChange?.Invoke(_endMoney);
-            OnLevelEnd?.Invoke(true);
+            Sequence playerMovementSequence = DOTween.Sequence();
+
+            Tween moveUpTween = transform.DOMoveY(1, 0.2f)
+                .SetRelative()
+                .SetEase(Ease.Linear);
+            Tween verticalMoveTween = transform.DOMove(gameManager.playerFirstPos.position, 1f)
+                .SetEase(Ease.Linear);
+            Tween rotateTween = transform.DORotate(Vector3.zero, 1f);
+
+            playerMovementSequence.Insert(0, moveUpTween);
+            playerMovementSequence.Insert(0.2f, verticalMoveTween);
+            playerMovementSequence.Insert(0.2f, rotateTween);
+
+            playerMovementSequence.Play()
+                .OnComplete(() =>
+                {
+                    OnLevelEnd?.Invoke(true);
+                    OnReset?.Invoke();
+                });
+        }
+
+        public override void Reset()
+        {
+            base.Reset();
+            extraColliders.SetActive(true);
         }
     }
 }

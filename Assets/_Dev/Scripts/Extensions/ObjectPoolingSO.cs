@@ -17,13 +17,12 @@ namespace Picker.Extensions
         private List<GameObject> _objectPool;
         private GameObject _parentObj;
         private int _count = 0;
-
-        public void InitializeObjectPool<T>(T clas)
+        
+        public void InitializeObjectPool(string parentName)
         {
             GameObject parentObj = new GameObject();
             _parentObj = parentObj;
-            string className = clas.ToString().Replace($"({clas.GetType().ToString()})", "");
-            _parentObj.name = $"{className}Pooling";
+            _parentObj.name = parentName;
 
             _objectPool = new List<GameObject>();
 

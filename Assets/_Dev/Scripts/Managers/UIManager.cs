@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Picker.Enums;
+using Picker.Interfaces;
 using Picker.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 
 namespace Picker.Managers
 {
-    public class UIManager : MonoBehaviour
+    public class UIManager : MonoBehaviour, IResetable
     {
         // public static event Action OnReset;
         
@@ -50,6 +51,7 @@ namespace Picker.Managers
             playerCollision.OnLevelProgress += LevelProgress;
             playerCollision.OnRampEnter += ThrowUIEnabled;
             playerCollision.OnThrow += ThrowUIDisabled;
+            playerCollision.OnReset += Reset;
             startTrigger.onClick.AddListener(TapToPlayTrigger);
             restartTrigger.onClick.AddListener(SceneReload);
         }
@@ -60,6 +62,7 @@ namespace Picker.Managers
             playerCollision.OnLevelProgress -= LevelProgress;
             playerCollision.OnRampEnter -= ThrowUIEnabled;
             playerCollision.OnThrow -= ThrowUIDisabled;
+            playerCollision.OnReset -= Reset;
         }
 
         private void TapToPlayTrigger()
@@ -99,5 +102,18 @@ namespace Picker.Managers
 
         private void ThrowUIEnabled() => throwUI.SetActive(true);
         private void ThrowUIDisabled() => throwUI.SetActive(false);
+        public void Reset()
+        {
+            ThrowUIDisabled();
+            successScreen.SetActive(false);
+            startScreen.SetActive(true);
+
+            foreach (Image image in levelProgressBars)
+            {
+                image.DOColor(Color.white, 0f);
+            }
+            
+            _currentLevelStep = 0;
+        }
     }
 }

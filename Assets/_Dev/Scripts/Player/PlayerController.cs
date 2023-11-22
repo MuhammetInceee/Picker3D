@@ -1,3 +1,4 @@
+using System;
 using Picker.Enums;
 using UnityEngine;
 
@@ -8,6 +9,16 @@ namespace Picker.Player
         internal float SpeedModifier;
         [SerializeField] private float verticalSpeed;
         [SerializeField] private float sensitivity;
+
+        private void OnEnable()
+        {
+            playerCollision.OnReset += Reset;
+        }
+
+        private void OnDisable()
+        {
+            playerCollision.OnReset -= Reset;
+        }
 
         private void FixedUpdate()
         {
@@ -36,6 +47,12 @@ namespace Picker.Player
                 HorizontalSpeed = Input.GetAxis("Mouse X") * sensitivity;
 
             else HorizontalSpeed = 0;
+        }
+
+        public override void Reset()
+        {
+            base.Reset();
+            SpeedModifier = 0;
         }
     }
 }

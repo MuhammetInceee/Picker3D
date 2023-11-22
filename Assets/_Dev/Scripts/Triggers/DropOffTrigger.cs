@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -47,6 +48,11 @@ namespace Picker.Trigger
                 CurrentCount++;
                 other.tag = "Untagged";
             }
+        }
+
+        private void OnDisable()
+        {
+            CurrentCount = 0;
         }
     }
 }

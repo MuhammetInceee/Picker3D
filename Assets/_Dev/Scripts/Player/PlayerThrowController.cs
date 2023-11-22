@@ -1,3 +1,4 @@
+using System;
 using Picker.Enums;
 using TMPro;
 using UnityEngine;
@@ -16,6 +17,12 @@ namespace Picker.Player
         {
             base.Awake();
             _playerController = GetComponent<PlayerController>();
+            playerCollision.OnReset += Reset;
+        }
+
+        private void OnDisable()
+        {
+            playerCollision.OnReset -= Reset;
         }
 
         private void Update()
@@ -26,6 +33,14 @@ namespace Picker.Player
             percentText.text = $"%{(int)(forceSlider.value)}";
             forceSlider.value = 
                 Input.GetMouseButtonDown(0) ? Mathf.Clamp(forceSlider.value + 10, 0f, 100f) : Mathf.Clamp(forceSlider.value - 0.10f, 0f, 100f);
+        }
+
+        public override void Reset()
+        {
+            base.Reset();
+            forceSlider.minValue = 0;
+            forceSlider.maxValue = 100;
+            forceSlider.value = 0;
         }
     }
 }
