@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 2690537408054763494, guid: 7e039851f0f04304995dcf3f60bcb864, type: 3}
-  poolSize: 250
+  poolSize: 400
   isRandomize: 0

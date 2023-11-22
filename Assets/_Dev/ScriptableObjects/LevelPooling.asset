@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: LevelPooling
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  poolSize: 4
+  - {fileID: 5582332059726283805, guid: 1a31abb5b44bc494ca1bf5467542f456, type: 3}
+  - {fileID: 4296952172877528037, guid: 0432ceabc5eeb6540ac38486082d3f8d, type: 3}
+  - {fileID: 8216806667246389892, guid: b9789fa3c0ab73d4188d7f23e239bc90, type: 3}
+  - {fileID: 4473614873361631260, guid: fdcfa090301a7ab45ae8a023ea0fe311, type: 3}
+  - {fileID: 964433378714709136, guid: 10119921edbe4044caf0ea14abb15ced, type: 3}
+  poolSize: 5
   isRandomize: 0
