@@ -17,7 +17,6 @@ namespace Picker.Level
         [SerializeField] private ObjectPoolingSO ballPooling;
         [SerializeField] private List<Transform> ballHolders;
         [SerializeField] private List<Collider> resetableColliders;
-        [SerializeField] private List<Animator> dropOffAnimators;
 
         private void OnEnable()
         {
@@ -28,11 +27,6 @@ namespace Picker.Level
                 _usedBall.Add(ball);
                 ball.SetActive(true);
             }
-            
-            // foreach (Animator animator in dropOffAnimators)
-            // {
-            //     animator.SetTrigger(LockDoor);
-            // }
         }
 
         private void OnDisable()
