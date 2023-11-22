@@ -697,6 +697,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8089462700591827159, guid: 609a880b6a3801448aacf9cc55248dd1, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 2104209960}
+    - target: {fileID: 8089462700591827159, guid: 609a880b6a3801448aacf9cc55248dd1, type: 3}
       propertyPath: collisionThreshold
       value: 10
       objectReference: {fileID: 0}
@@ -1673,7 +1677,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 13.092917, z: -8.721954}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2064170295}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &963194229
@@ -1692,7 +1697,7 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 0
+  m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
@@ -3379,11 +3384,11 @@ Transform:
   m_GameObject: {fileID: 2064170294}
   serializedVersion: 2
   m_LocalRotation: {x: -0.20360492, y: -0, z: -0, w: 0.97905314}
-  m_LocalPosition: {x: 0.6283923, y: 326, z: 419}
-  m_LocalScale: {x: 14547.759, y: 16375.491, z: 0.41757923}
+  m_LocalPosition: {x: 0.6283923, y: 325.99994, z: 418.99994}
+  m_LocalScale: {x: 14547.759, y: 16375.489, z: 0.41757917}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2104209961}
+  m_Father: {fileID: 963194228}
   m_LocalEulerAnglesHint: {x: 17, y: 0, z: 0}
 --- !u!23 &2064170297
 MeshRenderer:
@@ -3450,7 +3455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2069236688
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3662,7 +3667,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1616989210}
-  - {fileID: 2064170295}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7578893630073794193
